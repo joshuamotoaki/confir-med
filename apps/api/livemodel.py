@@ -1,8 +1,8 @@
-# Import necessary libraries
 import torch
 import torch.nn as nn
 from torchvision import transforms
 from PIL import Image
+import matplotlib.pyplot as plt
 
 # Define the list of medicines for mapping predictions
 medicines = [
@@ -11,7 +11,6 @@ medicines = [
     'Bioflu',
     'Biogesic',
     'DayZinc',
-    'Decolgen',
     'Fish Oil',
     'Kremil S',
     'Medicol',
@@ -20,7 +19,7 @@ medicines = [
 
 # Define the CNN model architecture (the same as the training code)
 class CNN(nn.Module):
-    def __init__(self, num_classes=10):
+    def __init__(self, num_classes=9):
         super().__init__()
         self.feature_extractor = nn.Sequential(
             nn.Conv2d(3, 256, kernel_size=3, padding=1),
@@ -50,8 +49,8 @@ class CNN(nn.Module):
         return x
 
 # Initialize and load the model weights
-model = CNN(num_classes=10)
-model.load_state_dict(torch.load(r'hack-princeton\apps\api\pretrained-models\model100.pth'))
+model = CNN(num_classes=9)
+model.load_state_dict(torch.load(r'apps\api\pretrained-models\cnn2.pth'))
 model.eval()  # Set to evaluation mode
 
 # Preprocessing for the input image
@@ -77,6 +76,18 @@ def predict(image_path, model):
     predicted_medicine = medicines[predicted.item()]
     return predicted_medicine, confidence.item()
 
-# Run the prediction
-predicted_medicine, confidence = predict(r"hack-princeton\apps\api\medicine-pics\FISHOIL.jpg", model) # Fixed for now but should react to API call eventually
-print(f"Predicted medicine: {predicted_medicine}, Confidence: {100*confidence:.4f}%")
+def plot_prediction(image_path, predicted_medicine, confidence, fig_width=5, fig_height=5, dpi=100):
+    # Load the original image
+    image = Image.open(image_path)
+
+    # Plot the image with the prediction label
+    plt.figure(figsize=(fig_width, fig_height), dpi=dpi)  # Define figure size and DPI
+    plt.imshow(image)
+    plt.axis('off')  # Hide axes
+    plt.title(f"Predicted: {predicted_medicine} ({confidence * 100:.2f}%)")
+    plt.show()
+
+# Run the prediction and plot the result with specific resolution
+predicted_medicine, confidence = predict(r"apps\api\medicine-pics\fish_sample.jpg", model)
+print(f"Predicted medicine: {predicted_medicine}, Confidence: {100*confidence:.2f}%")
+plot_prediction(r"apps\api\medicine-pics\fish_sample.jpg", predicted_medicine, confidence, fig_width=6, fig_height=6, dpi=100)
