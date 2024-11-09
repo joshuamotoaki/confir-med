@@ -31,7 +31,7 @@
                     </h1>
                     <p
                         class="mx-auto max-w-lg text-xl leading-relaxed text-slate-500">
-                        Caption goes here.
+                        Caption goes there.
                     </p>
 
                     <Button size="lg" href="/home">
@@ -85,7 +85,7 @@
     }
 
     .icon {
-        @apply mb-2 text-4xl text-primary;
+        @apply text-primary mb-2 text-4xl;
     }
 
     .card-title {
