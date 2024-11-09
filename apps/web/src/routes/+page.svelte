@@ -27,7 +27,7 @@
                 <div class="space-y-4 text-center">
                     <h1
                         class="text-6xl font-semibold leading-tight text-slate-900">
-                        Medicine!
+                        DRUGS!
                     </h1>
                     <p
                         class="mx-auto max-w-lg text-xl leading-relaxed text-slate-500">
