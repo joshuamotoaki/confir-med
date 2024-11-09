@@ -35,9 +35,9 @@
                 }}>
                 <span> Logout </span>
             </Button>
-            <Button variant="outline">
+            <Button variant="outline" href="/new-patient">
                 <Plus />
-                <span> Add Patient </span>
+                <span> New Patient </span>
             </Button>
         </nav>
     </div>
