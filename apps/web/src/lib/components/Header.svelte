@@ -4,6 +4,8 @@
     import { toast } from "svelte-sonner";
     import { goto } from "$app/navigation";
     import Plus from "$lib/icons/Plus.svelte";
+    import Home from "$lib/icons/Home.svelte";
+    import Leave from "$lib/icons/Leave.svelte";
 
     const supabase = getContext("supabase");
 </script>
@@ -18,10 +20,12 @@
             </div>
         </a>
         <nav class="std-flex gap-2">
-            <Button variant="ghost" href="/home">
+            <Button variant="ghost" href="/home" class="-space-x-1">
+                <Home />
                 <span> Home </span>
             </Button>
             <Button
+                class="-space-x-1"
                 variant="ghost"
                 onclick={async () => {
                     const { error } = await supabase.auth.signOut();
@@ -33,6 +37,7 @@
                         goto("/");
                     }
                 }}>
+                <Leave />
                 <span> Logout </span>
             </Button>
             <Button variant="outline" href="/new-patient">
