@@ -85,7 +85,7 @@
     }
 
     .icon {
-        @apply text-primary mb-2 text-4xl;
+        @apply mb-2 text-4xl text-primary;
     }
 
     .card-title {
