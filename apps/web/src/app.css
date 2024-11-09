@@ -2,6 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
+.cont {
+  @apply w-11/12 max-w-7xl mx-auto;
+}
+
+.link {
+  @apply text-primary hover:underline;
+}
+
+.std-flex {
+  @apply flex items-center justify-center;
+}
+
+.btw-flex {
+  @apply flex items-center justify-between;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
