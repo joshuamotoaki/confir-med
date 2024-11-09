@@ -24,10 +24,12 @@ export const reports = [
     }
 ];
 
+type Alert = "None" | "Warning" | "Report";
+
 type Patient = {
     id: number;
     name: string;
-    alert: string;
+    alert: Alert;
     medications: string[];
 };
 
@@ -53,25 +55,25 @@ export const patients: Patient[] = [
     {
         id: 4,
         name: "Alice Margatroid",
-        alert: "Forgot",
+        alert: "Warning",
         medications: ["acetaminophen"]
     },
     {
         id: 5,
         name: "Flandre Scarlet",
-        alert: "Forgot",
+        alert: "Warning",
         medications: ["ibuprofen"]
     },
     {
         id: 6,
         name: "Reimu Hakurei",
-        alert: "Effects",
+        alert: "Report",
         medications: ["acetaminophen"]
     },
     {
         id: 7,
         name: "Marisa Kirisame",
-        alert: "Effects",
+        alert: "Report",
         medications: ["ibuprofen"]
     },
     {

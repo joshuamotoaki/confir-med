@@ -17,6 +17,30 @@
             .map((x) => x.slice(0, 1).toUpperCase() + x.slice(1))
             .join(", ");
     };
+
+    const formatRowColor = (alert: string) => {
+        switch (alert) {
+            case "Report":
+                return "bg-yellow-100 hover:bg-yellow-200";
+            case "Warning":
+                return "bg-red-100 hover:bg-red-200";
+            default:
+                return "";
+        }
+    };
+
+    // Sort by Id, then place warnings first, then reports
+    const sortedPatients = patients.toSorted((a, b) => {
+        const alertPriority = {
+            Warning: 0,
+            Report: 1,
+            None: 2
+        };
+        if (alertPriority[a.alert] !== alertPriority[b.alert]) {
+            return alertPriority[a.alert] - alertPriority[b.alert];
+        }
+        return a.id - b.id;
+    });
 </script>
 
 <div>
@@ -64,8 +88,8 @@
                         </Table.Row>
                     </Table.Header>
                     <Table.Body>
-                        {#each patients as patient (patient.id)}
-                            <Table.Row>
+                        {#each sortedPatients as patient (patient.id)}
+                            <Table.Row class={formatRowColor(patient.alert)}>
                                 <Table.Cell class="font-medium"
                                     >{patient.name}</Table.Cell>
                                 <Table.Cell>{patient.alert}</Table.Cell>
