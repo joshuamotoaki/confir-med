@@ -14,7 +14,12 @@
     const formatMedications = (medications: string[]) => {
         return medications
             .sort()
-            .map((x) => x.slice(0, 1).toUpperCase() + x.slice(1))
+            .map((x) =>
+                x
+                    .split(" ")
+                    .map((y) => y[0].toUpperCase() + y.slice(1))
+                    .join(" ")
+            )
             .join(", ");
     };
 
