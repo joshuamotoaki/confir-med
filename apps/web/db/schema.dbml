@@ -1,0 +1,30 @@
+enum medication {
+    Aspirin
+    Ibuprofen
+    Paracetamol
+}
+
+table profiles {
+    id integer 
+    is_doctor boolean [not null, default: false]
+    doctor_id integer [ref: > profiles.id]
+    name text [not null]
+}
+
+table reports {
+    id integer
+    patient_id integer [ref: > profiles.id]
+    doctor_id integer [ref: > profiles.id]
+    is_warning boolean [not null]
+    notes text
+    date date [not null]
+}
+
+table medications {
+    id integer
+    patient_id integer [ref: > profiles.id]
+    name medication [not null]
+    dosage text [not null]
+    frequency text [not null]
+    notes text
+}
