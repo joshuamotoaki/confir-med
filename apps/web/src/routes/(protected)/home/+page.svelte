@@ -6,34 +6,17 @@
     import { getContext } from "svelte";
     import { toast } from "svelte-sonner";
     import PatientAlert from "$lib/components/PatientAlert.svelte";
+    import * as Table from "$lib/components/ui/table/index.js";
+    import { patients, reports, warnings } from "$lib/tmp";
 
     const supabase = getContext<SupabaseClient>("supabase");
 
-    const warnings = [
-        {
-            id: 1,
-            patient: "Alice Margatroid",
-            message: "Forgot to take medication (acetaminophen) on 11/9."
-        },
-        {
-            id: 2,
-            patient: "Flandre Scarlet",
-            message: "Forgot to take medication (ibuprofen) on 11/9."
-        }
-    ];
-
-    const reports = [
-        {
-            id: 1,
-            patient: "Reimu Hakurei",
-            message: "Side effects of medication (acetaminophen) reported."
-        },
-        {
-            id: 2,
-            patient: "Marisa Kirisame",
-            message: "Side effects of medication (ibuprofen) reported."
-        }
-    ];
+    const formatMedications = (medications: string[]) => {
+        return medications
+            .sort()
+            .map((x) => x.slice(0, 1).toUpperCase() + x.slice(1))
+            .join(", ");
+    };
 </script>
 
 <div>
@@ -66,12 +49,43 @@
         </div>
     </header>
     <main>
-        <div class="cont py-2">
+        <div class="cont space-y-4 py-2">
             <section id="alerts" class="space-y-2">
                 <PatientAlert alerts={warnings} type="warning" />
                 <PatientAlert alerts={reports} type="report" />
             </section>
-            <section id="patients"></section>
+            <section id="patients">
+                <Table.Root>
+                    <Table.Header>
+                        <Table.Row>
+                            <Table.Head>Patient</Table.Head>
+                            <Table.Head>Alert</Table.Head>
+                            <Table.Head>Medications</Table.Head>
+                        </Table.Row>
+                    </Table.Header>
+                    <Table.Body>
+                        {#each patients as patient (patient.id)}
+                            <Table.Row>
+                                <Table.Cell class="font-medium"
+                                    >{patient.name}</Table.Cell>
+                                <Table.Cell>{patient.alert}</Table.Cell>
+                                <Table.Cell
+                                    >{formatMedications(
+                                        patient.medications
+                                    )}</Table.Cell>
+                                <Table.Cell class="text-right">
+                                    <Button
+                                        size="sm"
+                                        variant="secondary"
+                                        href={`/patients/${patient.id}`}
+                                        aria-label={`View ${patient.name}'s profile`}
+                                        >View</Button>
+                                </Table.Cell>
+                            </Table.Row>
+                        {/each}
+                    </Table.Body>
+                </Table.Root>
+            </section>
         </div>
     </main>
 </div>
