@@ -4,6 +4,7 @@
     import Plus from "$lib/icons/Plus.svelte";
     import type { SupabaseClient } from "@supabase/supabase-js";
     import { getContext } from "svelte";
+    import { toast } from "svelte-sonner";
 
     const supabase = getContext<SupabaseClient>("supabase");
 </script>
@@ -20,7 +21,13 @@
                     variant="ghost"
                     onclick={async () => {
                         const { error } = await supabase.auth.signOut();
-                        goto("/");
+                        if (error) {
+                            toast.error(
+                                "There was a problem logging out. Please try again."
+                            );
+                        } else {
+                            goto("/");
+                        }
                     }}>
                     <span> Logout </span>
                 </Button>
