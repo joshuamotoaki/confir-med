@@ -21,7 +21,7 @@
     <div id="overlay" class="std-flex h-full">
         <div class="std-flex">
             <div class="text-center">
-                <h1 class="text-primary text-8xl font-semibold">Oh noes!</h1>
+                <h1 class="text-8xl font-semibold text-primary">Oh noes!</h1>
                 <h2 class="mb-8 text-4xl font-light text-slate-700">
                     {$page.status}
                     {$page.error?.message}
