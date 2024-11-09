@@ -1,6 +1,8 @@
 <script lang="ts">
+    import { setContext } from "svelte";
     import "../app.css";
-    let { children } = $props();
+    let { data, children } = $props();
+    setContext("supabase", data.supabase);
 </script>
 
 {@render children()}
