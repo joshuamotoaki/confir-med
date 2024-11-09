@@ -31,7 +31,7 @@
                     </h1>
                     <p
                         class="mx-auto max-w-lg text-xl leading-relaxed text-slate-500">
-                        Caption goes there.
+                        Caption goes here and there.
                     </p>
 
                     <Button size="lg" href="/home">
