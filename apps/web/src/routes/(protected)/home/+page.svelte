@@ -101,7 +101,7 @@
                                     <Button
                                         size="sm"
                                         variant="secondary"
-                                        href={`/patients/${patient.id}`}
+                                        href={`/patient/${patient.id}`}
                                         aria-label={`View ${patient.name}'s profile`}
                                         >View</Button>
                                 </Table.Cell>
