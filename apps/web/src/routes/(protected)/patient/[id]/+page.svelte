@@ -204,7 +204,6 @@
                                         )
                                         .join(", ");
                                 }}
-                                variant="secondary"
                                 size="icon">
                                 <Info />
                             </Button>
