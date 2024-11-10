@@ -2,8 +2,6 @@
     import { Button } from "$lib/components/ui/button";
 </script>
 
-<!DOCTYPE html>
-
 <div id="page" class="flex min-h-screen">
     <div id="overlay" class="flex flex-1 flex-col pb-4">
         <header class="flex h-16 border-b shadow-sm">
