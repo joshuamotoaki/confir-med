@@ -10,11 +10,11 @@
 
 By Joshua Lau, Ansh Desai, Ella Myslo, and Joshua Cheuk.
 
-ConfirMed is a comprehensive medication management platform that helps patients safely identify and track their medications while maintaining clear communication with healthcare providers. Using advanced machine learning for pill recognition and an intuitive user interface, ConfirMed makes medication management more reliable and stress-free.
+`ConfirMed` is a comprehensive medication management platform that helps patients safely identify and track their medications while maintaining clear communication with healthcare providers. Using advanced machine learning for pill recognition and an intuitive user interface, `ConfirMed` makes medication management more reliable and stress-free.
 
 ## Repository Structure
 
-The repository is a mono-repo containing the source code for the web application, API service, and mobile app.
+The repository is a mono-repo containing the source code for the web application, API service, and mobile app. Additionally, the backend is provided by Supabase -- a cloud PostgreSQL database with a REST API and easy authentication.
 
 ```
 confirMed/
@@ -31,10 +31,9 @@ confirMed/
 - Built with SvelteKit
 - Styled using TailwindCSS and ShadCN-svelte
 - Features:
-  - Dashboard for healthcare providers
   - Patient medication tracking
-  - Secure messaging system
   - Medication interaction warnings
+  - Side effect tracking
 
 ### API Service (/app/api)
 
@@ -44,9 +43,8 @@ confirMed/
   - Image processing pipeline
   - Drug identification
   - Interaction checking
-  - Authentication and authorization
 
-### Mobile App (/app/app)
+### Mobile App (/app/app) [WIP]
 
 - Built with Expo React Native
 - Features:
