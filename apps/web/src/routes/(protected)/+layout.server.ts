@@ -47,8 +47,6 @@ export const load: LayoutServerLoad = async ({ locals }) => {
             .select("id, name, alert, medications")
             .eq("doctor_id", user.id);
 
-        console.log(patients);
-
         return {
             profile: {
                 id: user.id,
