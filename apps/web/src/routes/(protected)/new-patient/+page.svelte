@@ -2,6 +2,7 @@
     import Button from "$lib/components/ui/button/button.svelte";
     import Input from "$lib/components/ui/input/input.svelte";
     import { Label } from "$lib/components/ui/label";
+    import { toast } from "svelte-sonner";
     import { slide } from "svelte/transition";
 
     let name = $state("");
@@ -17,7 +18,34 @@
 
     const medications: MedicationInput[] = $state([]);
 
-    const handleSubmit = async () => {};
+    const handleSubmit = async () => {
+        for (let i = 0; i < medications.length; i++) {
+            if (!medications[i].name) {
+                toast.error(
+                    "Medication name is required for medication " + (i + 1)
+                );
+                return;
+            }
+
+            if (!medications[i].frequency) {
+                toast.error("Frequency is required for medication " + (i + 1));
+                return;
+            }
+
+            if (medications[i].frequency <= 0) {
+                toast.error(
+                    "Frequency must be a positive number for medication " +
+                        (i + 1)
+                );
+                return;
+            }
+        }
+
+        if (!name) {
+            toast.warning("Patient name is required");
+            return;
+        }
+    };
 </script>
 
 <main>
@@ -95,7 +123,7 @@
                 </Button>
             </div>
 
-            <Button onclick={handleSubmit} class="mt-8">Add Patient</Button>
+            <Button onclick={handleSubmit} class="mt-8">Create Patient</Button>
         </div>
     </div>
 </main>
