@@ -2,9 +2,12 @@
     import Button from "$lib/components/ui/button/button.svelte";
     import Input from "$lib/components/ui/input/input.svelte";
     import { Label } from "$lib/components/ui/label";
+    import { API_URL } from "$lib/constants";
     import Plus from "$lib/icons/Plus.svelte";
     import { toast } from "svelte-sonner";
     import { slide } from "svelte/transition";
+    import * as Dialog from "$lib/components/ui/dialog";
+    import { goto } from "$app/navigation";
 
     let name = $state("");
 
@@ -18,6 +21,9 @@
     };
 
     const medications: MedicationInput[] = $state([]);
+
+    let numMultiEffects = $state(0);
+    let isWarningModalOpen = $state(false);
 
     const handleSubmit = async () => {
         for (let i = 0; i < medications.length; i++) {
@@ -45,6 +51,26 @@
         if (!name) {
             toast.warning("Patient name is required");
             return;
+        }
+
+        numMultiEffects = 0;
+        for (let i = 1; i < medications.length; i++) {
+            const conflicts = await fetch(
+                API_URL +
+                    "poly_se?drug_1=" +
+                    medications[i - 1].name +
+                    "&drug_2=" +
+                    medications[i].name
+            );
+            const data = await conflicts.json();
+            numMultiEffects += data.side_effects.length;
+        }
+
+        if (numMultiEffects > 0) {
+            isWarningModalOpen = true;
+        } else {
+            goto("/home");
+            toast.success("Patient created successfully");
         }
     };
 </script>
