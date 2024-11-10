@@ -39,10 +39,18 @@
         }
         return a.id - b.id;
     });
+
+    const name = "Dr. Eirin Yagokoro";
+    const code = "EY000";
 </script>
 
 <main>
     <div class="cont space-y-4 py-2">
+        <header>
+            <h1 class="text-2xl font-bold">Welcome, {name}</h1>
+            <p class="text-gray-500">Code: {code}</p>
+        </header>
+
         <section id="alerts" class="space-y-2">
             <PatientAlert alerts={warnings} type="warning" />
             <PatientAlert alerts={reports} type="report" />
