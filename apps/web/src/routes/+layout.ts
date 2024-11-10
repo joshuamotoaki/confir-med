@@ -49,7 +49,3 @@ export const load: LayoutLoad = async ({ data, depends, fetch }) => {
 
     return { session, supabase, user };
 };
-
-export const config: Config = {
-    runtime: "nodejs18.x"
-};
