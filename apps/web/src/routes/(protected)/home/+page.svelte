@@ -4,6 +4,13 @@
     import * as Table from "$lib/components/ui/table/index.js";
     import { patients, reports, warnings } from "$lib/tmp";
 
+    const { data } = $props();
+    const profile = data.profile;
+    if (!profile) {
+        throw new Error("Profile not found");
+    }
+    const { name, code } = profile;
+
     const formatMedications = (medications: string[]) => {
         return medications
             .sort()
@@ -39,15 +46,12 @@
         }
         return a.id - b.id;
     });
-
-    const name = "Dr. Eirin Yagokoro";
-    const code = "EY000";
 </script>
 
 <main>
     <div class="cont space-y-4 py-4">
         <header>
-            <h1 class="text-2xl font-bold">Welcome, {name}</h1>
+            <h1 class="text-2xl font-bold">Welcome, Dr. {name}</h1>
             <p class="text-gray-500">Code: {code}</p>
         </header>
 
