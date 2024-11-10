@@ -10,7 +10,7 @@ export const load: LayoutServerLoad = async ({ locals }) => {
         const { data, error } = await supAuth.signInWithOAuth({
             provider: "google",
             options: {
-                redirectTo: "http://localhost:5173/auth/"
+                redirectTo: "https://hack-princeton-ebon.vercel.app/auth/"
             }
         });
 
