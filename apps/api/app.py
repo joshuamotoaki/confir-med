@@ -4,6 +4,7 @@ from supabase import create_client, Client
 from livemodel import predict
 from dotenv import load_dotenv
 import os
+import json
 
 load_dotenv()
 
@@ -19,29 +20,29 @@ supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
 
 def get_monopharm_side_effects(drug_name):
     """
-    Queries the monopharm_side_effects table for the side effects of a single drug.
+    Queries the mono_SE table for the side effects of a single drug.
     """
-    response = supabase.table("monopharm_side_effects").select("side_effect_description").eq("drug_name", drug_name).execute()
-
+    response = supabase.table("mono_SE").select("side_effects").eq("drug_name", drug_name).execute()
     if response.data:
-        # Extract unique side effects
-        side_effects = list(set([row['side_effect_description'] for row in response.data]))
+        # Extract side effects directly from the response
+        side_effects = response.data[0]['side_effects']  # Assuming side_effects is stored as a JSON array
         return side_effects
     else:
         return []
 
 def get_polypharm_side_effects(drug_1, drug_2):
     """
-    Queries the polypharm_side_effects table for side effects between two drugs.
+    Queries the poly_SE table for side effects between two drugs.
     """
-    response = supabase.table("polypharm_side_effects").select("side_effects").or_(
-        f"(drug_1.eq.{drug_1},drug_2.eq.{drug_2}), (drug_1.eq.{drug_2},drug_2.eq.{drug_1})"
+    # Adjust the query to handle field names with spaces correctly and simplify the condition
+    response = supabase.table("poly_SE").select('"Side Effects"').or_(
+        f'"Drug 1".eq.{drug_1}, "Drug 2".eq.{drug_2}, "Drug 1".eq.{drug_2}, "Drug 2".eq.{drug_1}'
     ).execute()
 
     if response.data:
-        # Parse the side effects list stored as a JSON-like text
-        side_effects = response.data[0]['side_effects']
-        return eval(side_effects)  # Convert string representation of list to actual list
+        # Extract side effects directly from the response
+        side_effects = response.data[0]["Side Effects"]  # Assuming "Side Effects" is stored as a JSON array
+        return side_effects
     else:
         return []
 
