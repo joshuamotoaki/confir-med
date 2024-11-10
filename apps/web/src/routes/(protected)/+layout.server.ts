@@ -42,6 +42,13 @@ export const load: LayoutServerLoad = async ({ locals }) => {
             }
         }
 
+        const patients = await locals.supabase
+            .from("profiles")
+            .select("id, name, alert, medications")
+            .eq("doctor_id", user.id);
+
+        console.log(patients);
+
         return {
             profile: {
                 id: user.id,
@@ -53,7 +60,8 @@ export const load: LayoutServerLoad = async ({ locals }) => {
                         .join("") +
                     "-" +
                     user.id.slice(0, 4).toUpperCase()
-            }
+            },
+            patients: patients.data
         };
     }
 };

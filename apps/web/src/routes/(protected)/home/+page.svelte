@@ -2,10 +2,16 @@
     import Button from "$lib/components/ui/button/button.svelte";
     import PatientAlert from "$lib/components/PatientAlert.svelte";
     import * as Table from "$lib/components/ui/table/index.js";
-    import { patients, reports, warnings } from "$lib/tmp";
+    import { reports, warnings } from "$lib/tmp";
 
     const { data } = $props();
     const profile = data.profile;
+    const patients = data.patients || [];
+
+    $effect(() => {
+        console.log(patients);
+    });
+
     if (!profile) {
         throw new Error("Profile not found");
     }
