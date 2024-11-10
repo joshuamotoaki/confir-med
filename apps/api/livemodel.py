@@ -59,11 +59,24 @@ test_transform = transforms.Compose([
     transforms.ToTensor()
 ])
 
+def crop_to_square(image):
+    """
+    Crops the input PIL image to a square based on the shorter side.
+    """
+    width, height = image.size
+    side_length = min(width, height)
+    left = (width - side_length) // 2
+    top = (height - side_length) // 2
+    right = left + side_length
+    bottom = top + side_length
+    return image.crop((left, top, right, bottom))
+
 def predict(image_bytes, model):
     """
     Predicts the medicine from an image byte stream.
     """
     image = Image.open(io.BytesIO(image_bytes))
+    image = crop_to_square(image)  # Crop to square before resizing
     image = test_transform(image).unsqueeze(0)  # Add batch dimension
     with torch.no_grad():
         output = model(image)
