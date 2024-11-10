@@ -101,9 +101,7 @@
         <footer>
             <div class="cont">
                 <p class="mt-4 text-center text-sm text-slate-500">
-                    There is some info that goes here. <a href="/" class="link">
-                        Wow, look there's a link!
-                    </a>
+                    &copy; 2024 ConfirMed.
                 </p>
             </div>
         </footer>
