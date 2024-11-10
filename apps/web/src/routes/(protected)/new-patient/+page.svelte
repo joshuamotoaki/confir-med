@@ -2,9 +2,16 @@
     import Button from "$lib/components/ui/button/button.svelte";
     import Input from "$lib/components/ui/input/input.svelte";
     import { Label } from "$lib/components/ui/label";
+    import { API_URL } from "$lib/constants";
     import Plus from "$lib/icons/Plus.svelte";
     import { toast } from "svelte-sonner";
     import { slide } from "svelte/transition";
+    import { goto } from "$app/navigation";
+    import { getContext } from "svelte";
+
+    const { data } = $props();
+
+    const supabase = getContext("supabase");
 
     let name = $state("");
 
@@ -18,6 +25,23 @@
     };
 
     const medications: MedicationInput[] = $state([]);
+
+    let numMultiEffects = $state(0);
+    let isWarningModalOpen = $state(false);
+
+    function generateUUID() {
+        return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
+            /[xy]/g,
+            function (c) {
+                const r = (Math.random() * 16) | 0;
+                const v = c == "x" ? r : (r & 0x3) | 0x8;
+                return v.toString(16);
+            }
+        );
+    }
+
+    // Usage
+    const uuid = generateUUID();
 
     const handleSubmit = async () => {
         for (let i = 0; i < medications.length; i++) {
@@ -45,6 +69,48 @@
         if (!name) {
             toast.warning("Patient name is required");
             return;
+        }
+
+        numMultiEffects = 0;
+        for (let i = 1; i < medications.length; i++) {
+            const conflicts = await fetch(
+                API_URL +
+                    "poly_se?drug_1=" +
+                    medications[i - 1].name +
+                    "&drug_2=" +
+                    medications[i].name
+            );
+            const data = await conflicts.json();
+            numMultiEffects += data.side_effects.length;
+        }
+
+        if (numMultiEffects > 0) {
+            isWarningModalOpen = true;
+            toast.warning(
+                "Warning: There are " +
+                    numMultiEffects +
+                    " potential interactions between medications"
+            );
+        } else {
+            const id = generateUUID();
+            const alert = "None";
+            const doctor_id = data.user?.id;
+            const medNames = medications.map((x) => x.name.toLowerCase());
+
+            const supaRes = await supabase.from("profiles").insert([
+                {
+                    id,
+                    name,
+                    medications: medNames,
+                    alert,
+                    doctor_id
+                }
+            ]);
+
+            if (!supaRes.error) {
+                goto("/home");
+                toast.success("Patient created successfully");
+            }
         }
     };
 </script>

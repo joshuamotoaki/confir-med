@@ -43,10 +43,11 @@
                 <div class="justiyf-start flex items-center gap-1">
                     {#if type === "warning"}
                         <Warning className="size-5" />
+                        <h2 class="font-semibold">Warnings</h2>
                     {:else if type === "report"}
                         <Info className="size-5" />
+                        <h2 class="font-semibold">Reports</h2>
                     {/if}
-                    <h2 class="font-semibold">Reports</h2>
                 </div>
             </Alert.Title>
             <Alert.Description variant="">
