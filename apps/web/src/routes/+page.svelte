@@ -30,8 +30,8 @@
                         Smarter and safer self-administration
                     </h1>
                     <p
-                        class="mx-auto max-w-lg text-xl leading-relaxed text-slate-500">
-                        Caption goes here and there.
+                        class="mx-auto max-w-lg text-xl leading-relaxed text-slate-600">
+                        Welcome to ConfirMed!
                     </p>
 
                     <Button size="lg" href="/home">
@@ -41,13 +41,33 @@
                 <section class="grid gap-4 sm:grid-cols-3">
                     <div class="card">
                         <div class="icon">i</div>
-                        <h4 class="card-title">Info 1</h4>
-                        <p class="card-body">Do something here.</p>
+                        <h4 class="card-title">The issue</h4>
+                        <p class="card-body">
+                            In 2018, a study found that most elderly people take
+                            five or more medications a day and are treated by
+                            several physicians at once. When the number of
+                            prescriptions rises, it is more common to confuse
+                            the medications. .
+                        </p>
                     </div>
                     <div class="card">
                         <div class="icon">i</div>
-                        <h4 class="card-title">Info 2</h4>
-                        <p class="card-body">Do something here.</p>
+                        <h4 class="card-title">
+                            Further implications of danger
+                        </h4>
+                        <p class="card-body">
+                            A study in 2018 found that when patients were asked
+                            what they knew about the treatment they were taking,
+                            the rate of correct response was about 52%
+                            considering all of the medications prescribed. They
+                            were most knowledgeable about which medicines they
+                            were taking (75.8% of patients responded correctly
+                            to this item), what the medicines were for, and how
+                            to take them (67.8%). Patients were least
+                            knowledgeable about the precautions they should take
+                            when using their medications (with only a 3.9% rate
+                            of correct responses).
+                        </p>
                     </div>
                     <div class="card">
                         <div class="icon">i</div>
@@ -85,7 +105,7 @@
     }
 
     .icon {
-        @apply mb-2 text-4xl text-primary;
+        @apply text-primary mb-2 text-4xl;
     }
 
     .card-title {
