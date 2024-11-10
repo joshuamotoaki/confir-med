@@ -2,8 +2,6 @@
     import { Button } from "$lib/components/ui/button";
 </script>
 
-<!DOCTYPE html>
-
 <div id="page" class="flex min-h-screen">
     <div id="overlay" class="flex flex-1 flex-col pb-4">
         <header class="flex h-16 border-b shadow-sm">
@@ -51,7 +49,7 @@
                             prescriptions rises, it is more common to confuse
                             the medications.
                             <img
-                                src="/elderly struggle meds2.png"
+                                src="/web/elderly_struggle_meds2.png"
                                 alt="Elderly person organizing daily medication" />
                         </p>
                     </div>
@@ -73,11 +71,6 @@
                             when using their medications (with only a 3.9% rate
                             of correct responses).
                         </p>
-                    </div>
-                    <div class="card">
-                        <div class="icon">i</div>
-                        <h4 class="card-title">Info 3</h4>
-                        <p class="card-body">Do something here.</p>
                     </div>
                 </section>
             </div>
