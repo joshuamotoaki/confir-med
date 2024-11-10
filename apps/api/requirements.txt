@@ -5,3 +5,4 @@ torchvision
 pillow
 supabase
 matplotlib
+python-dotenv
