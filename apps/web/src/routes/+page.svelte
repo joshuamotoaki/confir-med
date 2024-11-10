@@ -49,7 +49,7 @@
                             prescriptions rises, it is more common to confuse
                             the medications.
                             <img
-                                src="/web/elderly_struggle_meds2.png"
+                                src="/elderly_struggle_meds2.png"
                                 alt="Elderly person organizing daily medication" />
                         </p>
                     </div>
@@ -72,22 +72,23 @@
                             of correct responses).
                         </p>
                     </div>
+                    <div class="card" style="width: 40rem;">
+                        <div class="icon">*</div>
+                        <img
+                            src="/medication-reminder-elderly.png"
+                            class="card-img-top"
+                            alt="elderly remind medication " />
+                        <div class="card-body">
+                            <p class="card-text">
+                                ConfirMed's goal is to ensure patient safety by
+                                helping individuals accurately manage medication
+                                intake, and help physicians track medication
+                                intake and intervene in patient mishaps to allow
+                                self-administration be smarter and safer.
+                            </p>
+                        </div>
+                    </div>
                 </section>
-            </div>
-            <div class="card" style="width: 18rem;">
-                <img
-                    src="/medication-reminder-elderly.png"
-                    class="card-img-top"
-                    alt="elderly remind medication " />
-                <div class="card-body">
-                    <p class="card-text">
-                        ConfirMed's goal is to ensure patient safety by helping
-                        individuals accurately manage medication intake, and
-                        help physicians track medication intake and intervene in
-                        patient mishaps to allow self-administration be smarter
-                        and safer.
-                    </p>
-                </div>
             </div>
         </main>
         <footer>
