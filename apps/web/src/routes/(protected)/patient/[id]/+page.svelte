@@ -6,7 +6,9 @@
     import { warnings } from "$lib/tmp";
     import * as Dialog from "$lib/components/ui/dialog";
 
-    let patientName = "Alice Margatroid";
+    const { data } = $props();
+
+    const patientName = data.patient.name;
 
     const medications = [
         {
