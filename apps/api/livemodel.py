@@ -1,17 +1,16 @@
-# Import necessary libraries
 import torch
 import torch.nn as nn
 from torchvision import transforms
 from PIL import Image
+import matplotlib.pyplot as plt
+import io
 
-# Define the list of medicines for mapping predictions
 medicines = [
     'Alaxan',
     'Bactidol',
     'Bioflu',
     'Biogesic',
     'DayZinc',
-    'Decolgen',
     'Fish Oil',
     'Kremil S',
     'Medicol',
@@ -20,7 +19,7 @@ medicines = [
 
 # Define the CNN model architecture (the same as the training code)
 class CNN(nn.Module):
-    def __init__(self, num_classes=10):
+    def __init__(self, num_classes=9):
         super().__init__()
         self.feature_extractor = nn.Sequential(
             nn.Conv2d(3, 256, kernel_size=3, padding=1),
@@ -50,8 +49,8 @@ class CNN(nn.Module):
         return x
 
 # Initialize and load the model weights
-model = CNN(num_classes=10)
-model.load_state_dict(torch.load(r'hack-princeton\apps\api\pretrained-models\model100.pth'))
+model = CNN(num_classes=9)
+model.load_state_dict(torch.load(r'pretrained-models/cnn2.pth'))
 model.eval()  # Set to evaluation mode
 
 # Preprocessing for the input image
@@ -60,23 +59,14 @@ test_transform = transforms.Compose([
     transforms.ToTensor()
 ])
 
-def predict(image_path, model):
-    # Load and preprocess the image
-    image = Image.open(image_path)
+def predict(image_bytes, model):
+    """
+    Predicts the medicine from an image byte stream.
+    """
+    image = Image.open(io.BytesIO(image_bytes))
     image = test_transform(image).unsqueeze(0)  # Add batch dimension
-
-    # Run the model on the input image
     with torch.no_grad():
         output = model(image)
-        # Apply softmax to get probabilities
         probabilities = torch.softmax(output, dim=1)
-        # Get the top probability and the corresponding class
         confidence, predicted = torch.max(probabilities, dim=1)
-
-    # Map prediction to medicine name
-    predicted_medicine = medicines[predicted.item()]
-    return predicted_medicine, confidence.item()
-
-# Run the prediction
-predicted_medicine, confidence = predict(r"hack-princeton\apps\api\medicine-pics\FISHOIL.jpg", model) # Fixed for now but should react to API call eventually
-print(f"Predicted medicine: {predicted_medicine}, Confidence: {100*confidence:.4f}%")
+    return medicines[predicted.item()], confidence.item()
