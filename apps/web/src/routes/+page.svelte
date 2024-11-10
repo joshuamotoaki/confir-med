@@ -49,7 +49,7 @@
                             prescriptions rises, it is more common to confuse
                             the medications.
                             <img
-                                src="/web/elderly_struggle_meds2.png"
+                                src="/elderly_struggle_meds2.png"
                                 alt="Elderly person organizing daily medication" />
                         </p>
                     </div>
