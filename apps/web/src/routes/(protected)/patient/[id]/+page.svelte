@@ -111,9 +111,9 @@
 </script>
 
 <div>
-    <div class="cont space-y-4 py-2">
+    <div class="cont space-y-4 py-4">
         <div class="btw-flex">
-            <h1 class="text-2xl font-semibold text-blue-800">
+            <h1 class="text-2xl font-semibold">
                 Patient: {patientName}
             </h1>
         </div>

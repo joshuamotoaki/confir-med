@@ -50,7 +50,7 @@
 </script>
 
 <main>
-    <div class="cont py-2">
+    <div class="cont py-4">
         <h2 class="text-2xl font-semibold text-blue-800">Add New Patient</h2>
 
         <div>
