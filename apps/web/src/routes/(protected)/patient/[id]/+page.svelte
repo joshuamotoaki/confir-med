@@ -1,6 +1,5 @@
 <script lang="ts">
     import Button from "$lib/components/ui/button/button.svelte";
-    import Edit from "$lib/icons/Edit.svelte";
     import * as Tooltip from "$lib/components/ui/tooltip";
     import Info from "$lib/icons/Info.svelte";
     import PatientAlert from "$lib/components/PatientAlert.svelte";
