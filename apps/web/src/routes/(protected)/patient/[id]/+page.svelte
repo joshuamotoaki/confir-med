@@ -22,7 +22,7 @@
         },
         {
             id: 2,
-            name: "Acetaminophen",
+            name: "Fish Oil",
             frequency: 12
         },
         {
