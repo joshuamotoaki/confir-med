@@ -2,6 +2,8 @@
     import { Button } from "$lib/components/ui/button";
 </script>
 
+<!DOCTYPE html>
+
 <div id="page" class="flex min-h-screen">
     <div id="overlay" class="flex flex-1 flex-col pb-4">
         <header class="flex h-16 border-b shadow-sm">
@@ -47,7 +49,10 @@
                             five or more medications a day and are treated by
                             several physicians at once. When the number of
                             prescriptions rises, it is more common to confuse
-                            the medications. .
+                            the medications.
+                            <img
+                                src="/images/elderly-medication.png"
+                                alt="Elderly person organizing daily medication" />
                         </p>
                     </div>
                     <div class="card">
