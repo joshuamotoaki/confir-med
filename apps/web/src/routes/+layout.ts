@@ -8,6 +8,7 @@ import {
     PUBLIC_SUPABASE_URL
 } from "$env/static/public";
 import type { LayoutLoad } from "./$types";
+import type { Config } from "@sveltejs/adapter-vercel";
 
 export const load: LayoutLoad = async ({ data, depends, fetch }) => {
     /**
@@ -47,4 +48,8 @@ export const load: LayoutLoad = async ({ data, depends, fetch }) => {
     } = await supabase.auth.getUser();
 
     return { session, supabase, user };
+};
+
+export const config: Config = {
+    runtime: "nodejs18.x"
 };
