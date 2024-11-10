@@ -1,5 +1,6 @@
 <script>
     import { Button } from "$lib/components/ui/button";
+    import Info from "$lib/icons/Info.svelte";
 </script>
 
 <div id="page" class="flex min-h-screen">
@@ -45,7 +46,9 @@
                 </div>
                 <section class="grid gap-4 sm:grid-cols-3">
                     <div class="card">
-                        <div class="icon">i</div>
+                        <div class="icon">
+                            <Info />
+                        </div>
                         <h4 class="card-title">The Issue</h4>
                         <p class="card-body">
                             In 2018, a study found that most elderly people take
@@ -59,7 +62,9 @@
                         </p>
                     </div>
                     <div class="card">
-                        <div class="icon">i</div>
+                        <div class="icon">
+                            <Info />
+                        </div>
                         <h4 class="card-title">
                             Further Implications of Danger
                         </h4>
@@ -75,6 +80,19 @@
                             knowledgeable about the precautions they should take
                             when using their medications (with only a 3.9% rate
                             of correct responses).
+                        </p>
+                    </div>
+                    <div class="card">
+                        <div class="icon">
+                            <Info />
+                        </div>
+                        <h4 class="card-title">Our Purpose</h4>
+                        <p class="card-body">
+                            ConfirMed's goal is to ensure patient safety by
+                            helping individuals accurately manage medication
+                            intake, and help physicians track medication intake
+                            nd intervene in patienter mishaps to allow
+                            self-administration be smarter and safer.
                         </p>
                     </div>
                 </section>
