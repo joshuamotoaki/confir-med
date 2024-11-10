@@ -116,10 +116,6 @@
             <h1 class="text-2xl font-semibold text-blue-800">
                 Patient: {patientName}
             </h1>
-            <Button>
-                <Edit />
-                <span> Edit Patient </span>
-            </Button>
         </div>
         <PatientAlert alerts={warnings} type="warning" />
         <main>
