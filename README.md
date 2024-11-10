@@ -2,7 +2,9 @@
 
 **Smarter and safer self-administration of medications**
 
-![ConfirMed Logo](./apps/web/static/logo.png)
+<h1 align="center">
+  <img src="apps/web/static/logo.png" alt="ConfirMed Logo" width="50%">
+</h1>
 
 ## Overview
 
@@ -100,3 +102,7 @@ npx expo start
 ## Disclaimer
 
 Note: This application is intended to assist with medication management but should not be used as the sole method of verification. Always consult healthcare providers and read medication labels carefully.
+
+## License
+
+This project is licensed under the BSD 3-Clause License - see the [LICENSE](LICENSE) file for details.
