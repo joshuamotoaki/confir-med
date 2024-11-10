@@ -3,7 +3,6 @@
     import * as Tooltip from "$lib/components/ui/tooltip";
     import Info from "$lib/icons/Info.svelte";
     import PatientAlert from "$lib/components/PatientAlert.svelte";
-    import { warnings } from "$lib/tmp";
     import * as Dialog from "$lib/components/ui/dialog";
     import { API_URL } from "$lib/constants.js";
 
@@ -23,23 +22,13 @@
         },
         {
             id: 2,
-            name: "Paracetamol",
+            name: "Acetaminophen",
             frequency: 12
         },
         {
             id: 3,
             name: "Aspirin",
             frequency: 8
-        },
-        {
-            id: 4,
-            name: "Morphine",
-            frequency: 4
-        },
-        {
-            id: 5,
-            name: "Codeine",
-            frequency: 6
         }
     ];
 
@@ -86,9 +75,17 @@
         }
     ];
 
+    const warnings = [
+        {
+            id: 1,
+            patient: patientName,
+            message: "Forgot to take medication (acetaminophen) on 11/8."
+        }
+    ];
+
     const formatDate = (date: string) => {
         const [year, month, day] = date.split("-");
-        return `${day}/${month}/${year}`;
+        return `${month}/${day}/${year}`;
     };
 
     const formatValue = (value: string) => {
