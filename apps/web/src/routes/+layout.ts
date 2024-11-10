@@ -8,7 +8,6 @@ import {
     PUBLIC_SUPABASE_URL
 } from "$env/static/public";
 import type { LayoutLoad } from "./$types";
-import type { Config } from "@sveltejs/adapter-vercel";
 
 export const load: LayoutLoad = async ({ data, depends, fetch }) => {
     /**
