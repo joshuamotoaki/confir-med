@@ -11,12 +11,17 @@
                         // Scroll to top
                         window.scrollTo({ top: 0, behavior: "smooth" });
                     }}>
-                    <div class="flex items-end gap-1 font-semibold">
-                        <h2 class="text-x4">ConfirMed</h2>
-                    </div>
+                    <a href="/home" class="flex items-center gap-2">
+                        <img src="/logo.png" class="size-8" alt="Logo" />
+                        <div class="-space-y-2">
+                            <h1 class="text-2xl font-bold text-blue-800">
+                                ConfirMed
+                            </h1>
+                        </div>
+                    </a>
                 </button>
                 <nav>
-                    <Button size="sm" href="/home">
+                    <Button href="/home">
                         <span> Get Started </span>
                     </Button>
                 </nav>
