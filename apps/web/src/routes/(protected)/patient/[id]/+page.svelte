@@ -2,8 +2,39 @@
     import Button from "$lib/components/ui/button/button.svelte";
     import Edit from "$lib/icons/Edit.svelte";
     import * as Tooltip from "$lib/components/ui/tooltip";
+    import Info from "$lib/icons/Info.svelte";
+    import PatientAlert from "$lib/components/PatientAlert.svelte";
+    import { warnings } from "$lib/tmp";
 
     let patientName = "Alice Margatroid";
+
+    const medications = [
+        {
+            id: 1,
+            name: "Medication 1",
+            frequency: "Every Day"
+        },
+        {
+            id: 2,
+            name: "Medication 2",
+            frequency: "Every 12 Hours"
+        },
+        {
+            id: 3,
+            name: "Medication 3",
+            frequency: "Every Other Day"
+        },
+        {
+            id: 4,
+            name: "Medication 4",
+            frequency: "Every 3 Days"
+        },
+        {
+            id: 5,
+            name: "Medication 5",
+            frequency: "Every 4 Hours"
+        }
+    ];
 
     const responses = [
         {
@@ -80,7 +111,7 @@
 </script>
 
 <div>
-    <div class="cont py-2">
+    <div class="cont space-y-4 py-2">
         <div class="btw-flex">
             <h1 class="text-2xl font-semibold text-blue-800">
                 Patient: {patientName}
@@ -90,8 +121,36 @@
                 <span> Edit Patient </span>
             </Button>
         </div>
-        <main></main>
+        <PatientAlert alerts={warnings} type="warning" />
+        <main>
+            <h2 class="mb-1 text-xl font-semibold text-blue-800">
+                Medications
+            </h2>
+
+            <div class="space-y-2">
+                {#each medications as medication}
+                    <div class="flex items-center gap-1">
+                        <div>
+                            <Button size="icon">
+                                <Info />
+                            </Button>
+                        </div>
+                        <div class="-space-y-1">
+                            <p class="font-semibold text-blue-800">
+                                {medication.name}
+                            </p>
+                            <p class="text-sm text-gray-500">
+                                {medication.frequency}
+                            </p>
+                        </div>
+                    </div>
+                {/each}
+            </div>
+        </main>
         <article id="chart">
+            <h2 class="mb-1 text-xl font-semibold text-blue-800">
+                Medication History (Last 10 Days)
+            </h2>
             <div class="grid-container">
                 {#each responses as response}
                     <Tooltip.Provider>
@@ -122,6 +181,6 @@
     }
 
     .box {
-        @apply size-6 rounded-sm;
+        @apply size-6 rounded-sm shadow-sm;
     }
 </style>
