@@ -4,6 +4,7 @@
     import Info from "$lib/icons/Info.svelte";
     import PatientAlert from "$lib/components/PatientAlert.svelte";
     import { warnings } from "$lib/tmp";
+    import * as Dialog from "$lib/components/ui/dialog";
 
     let patientName = "Alice Margatroid";
 
@@ -11,27 +12,27 @@
         {
             id: 1,
             name: "Medication 1",
-            frequency: "Every Day"
+            frequency: 24
         },
         {
             id: 2,
             name: "Medication 2",
-            frequency: "Every 12 Hours"
+            frequency: 12
         },
         {
             id: 3,
             name: "Medication 3",
-            frequency: "Every Other Day"
+            frequency: 48
         },
         {
             id: 4,
             name: "Medication 4",
-            frequency: "Every 3 Days"
+            frequency: 6
         },
         {
             id: 5,
             name: "Medication 5",
-            frequency: "Every 4 Hours"
+            frequency: 4
         }
     ];
 
@@ -124,18 +125,33 @@
 
             <div class="space-y-2">
                 {#each medications as medication}
-                    <div class="flex items-center gap-1">
+                    <div class="flex items-center gap-2">
                         <div>
-                            <Button size="icon">
-                                <Info />
-                            </Button>
+                            <Dialog.Root>
+                                <Dialog.Trigger>
+                                    <Button variant="secondary" size="icon">
+                                        <Info />
+                                    </Button>
+                                </Dialog.Trigger>
+                                <Dialog.Content>
+                                    <Dialog.Header>
+                                        <Dialog.Title>
+                                            Info about {medication.name}
+                                        </Dialog.Title>
+                                        <Dialog.Description>
+                                            This medication is taken every {medication.frequency}
+                                            hours.
+                                        </Dialog.Description>
+                                    </Dialog.Header>
+                                </Dialog.Content>
+                            </Dialog.Root>
                         </div>
                         <div class="-space-y-1">
                             <p class="font-semibold text-blue-800">
                                 {medication.name}
                             </p>
                             <p class="text-sm text-gray-500">
-                                {medication.frequency}
+                                Every {medication.frequency} hours
                             </p>
                         </div>
                     </div>
