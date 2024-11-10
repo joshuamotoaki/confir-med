@@ -72,8 +72,8 @@
                             of correct responses).
                         </p>
                     </div>
-                    <div class="card" style="width: 40rem;">
-                        <div class="icon">*</div>
+                    <div class="card" style="width: 30rem;">
+                        <div class="icon">Our Purpose</div>
                         <img
                             src="/medication-reminder-elderly.png"
                             class="card-img-top"
