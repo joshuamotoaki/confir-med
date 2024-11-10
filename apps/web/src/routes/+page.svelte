@@ -12,7 +12,7 @@
                         window.scrollTo({ top: 0, behavior: "smooth" });
                     }}>
                     <div class="flex items-end gap-1 font-semibold">
-                        <h2 class="text-xl">ConfirMed</h2>
+                        <h2 class="text-x4">ConfirMed</h2>
                     </div>
                 </button>
                 <nav>
@@ -41,7 +41,7 @@
                 <section class="grid gap-4 sm:grid-cols-3">
                     <div class="card">
                         <div class="icon">i</div>
-                        <h4 class="card-title">The issue</h4>
+                        <h4 class="card-title">The Issue</h4>
                         <p class="card-body">
                             In 2018, a study found that most elderly people take
                             five or more medications a day and are treated by
@@ -56,7 +56,7 @@
                     <div class="card">
                         <div class="icon">i</div>
                         <h4 class="card-title">
-                            Further implications of danger
+                            Further Implications of Danger
                         </h4>
                         <p class="card-body">
                             A study in 2018 found that when patients were asked
@@ -79,7 +79,7 @@
             <div class="cont">
                 <p class="mt-4 text-center text-sm text-slate-500">
                     There is some info that goes here. <a href="/" class="link">
-                        Wow look there's a link!
+                        Wow, look there's a link!
                     </a>
                 </p>
             </div>
