@@ -5,36 +5,41 @@
     import PatientAlert from "$lib/components/PatientAlert.svelte";
     import { warnings } from "$lib/tmp";
     import * as Dialog from "$lib/components/ui/dialog";
+    import { API_URL } from "$lib/constants.js";
 
     const { data } = $props();
 
     const patientName = data.patient.name;
 
+    let isDialogOpen = $state(false);
+    let currentMedication = $state(null);
+    let medicationSideEffects: string | null = $state(null);
+
     const medications = [
         {
             id: 1,
-            name: "Medication 1",
+            name: "Ibuprofen",
             frequency: 24
         },
         {
             id: 2,
-            name: "Medication 2",
+            name: "Paracetamol",
             frequency: 12
         },
         {
             id: 3,
-            name: "Medication 3",
-            frequency: 48
+            name: "Aspirin",
+            frequency: 8
         },
         {
             id: 4,
-            name: "Medication 4",
-            frequency: 6
+            name: "Morphine",
+            frequency: 4
         },
         {
             id: 5,
-            name: "Medication 5",
-            frequency: 4
+            name: "Codeine",
+            frequency: 6
         }
     ];
 
@@ -110,7 +115,37 @@
                 return "";
         }
     };
+
+    $effect(() => {
+        if (!isDialogOpen) {
+            currentMedication = null;
+            medicationSideEffects = null;
+        }
+    });
 </script>
+
+<Dialog.Root bind:open={isDialogOpen}>
+    {#if currentMedication}
+        <Dialog.Content>
+            <Dialog.Header>
+                <Dialog.Title>
+                    Side Effects for {currentMedication.name}
+                </Dialog.Title>
+                <Dialog.Description>
+                    {#if medicationSideEffects !== null}
+                        {#if medicationSideEffects.length > 0}
+                            {medicationSideEffects}
+                        {:else}
+                            No side effects found.
+                        {/if}
+                    {:else}
+                        Loading...
+                    {/if}
+                </Dialog.Description>
+            </Dialog.Header>
+        </Dialog.Content>
+    {/if}
+</Dialog.Root>
 
 <div>
     <div class="cont space-y-4 py-4">
@@ -126,27 +161,53 @@
             </h2>
 
             <div class="space-y-2">
-                {#each medications as medication}
+                {#each medications as medication (medication.id)}
                     <div class="flex items-center gap-2">
                         <div>
-                            <Dialog.Root>
-                                <Dialog.Trigger>
-                                    <Button variant="secondary" size="icon">
-                                        <Info />
-                                    </Button>
-                                </Dialog.Trigger>
-                                <Dialog.Content>
-                                    <Dialog.Header>
-                                        <Dialog.Title>
-                                            Info about {medication.name}
-                                        </Dialog.Title>
-                                        <Dialog.Description>
-                                            This medication is taken every {medication.frequency}
-                                            hours.
-                                        </Dialog.Description>
-                                    </Dialog.Header>
-                                </Dialog.Content>
-                            </Dialog.Root>
+                            <Button
+                                onclick={async () => {
+                                    currentMedication = medication;
+                                    isDialogOpen = true;
+
+                                    const res = await fetch(
+                                        API_URL +
+                                            "mono_se?drug_name=" +
+                                            medication.name
+                                    );
+
+                                    const data = await res.json();
+
+                                    if (data.side_effects.length === 0) {
+                                        medicationSideEffects = "";
+                                        return;
+                                    }
+
+                                    medicationSideEffects = data.side_effects
+                                        .slice(1, -1)
+                                        .split(", ")
+                                        .map((effect: string) =>
+                                            effect.slice(1, -1)
+                                        )
+                                        .slice(0, 10)
+                                        .map((effect: string) =>
+                                            effect
+                                                .split(" ")
+                                                .map((y: string) => {
+                                                    return (
+                                                        y
+                                                            .charAt(0)
+                                                            .toUpperCase() +
+                                                        y.slice(1)
+                                                    );
+                                                })
+                                                .join(" ")
+                                        )
+                                        .join(", ");
+                                }}
+                                variant="secondary"
+                                size="icon">
+                                <Info />
+                            </Button>
                         </div>
                         <div class="-space-y-1">
                             <p class="font-semibold text-blue-800">
