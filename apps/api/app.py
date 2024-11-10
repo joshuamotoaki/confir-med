@@ -1,10 +1,11 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from supabase import create_client, Client
-from livemodel import predict
+from livemodel import predict, model
 from dotenv import load_dotenv
 import os
 import json
+import ast
 
 load_dotenv()
 
@@ -33,18 +34,38 @@ def get_monopharm_side_effects(drug_name):
 def get_polypharm_side_effects(drug_1, drug_2):
     """
     Queries the poly_SE table for side effects between two drugs.
+    Returns an empty list if either drug_1 or drug_2 does not exist in the table.
     """
-    # Adjust the query to handle field names with spaces correctly and simplify the condition
+    # Check if both drugs exist in the table
+    drug_1_exists = supabase.table("poly_SE").select("Drug 1").or_(
+        f'"Drug 1".eq.{drug_1}, "Drug 2".eq.{drug_1}'
+    ).execute()
+
+    drug_2_exists = supabase.table("poly_SE").select("Drug 2").or_(
+        f'"Drug 1".eq.{drug_2}, "Drug 2".eq.{drug_2}'
+    ).execute()
+
+    if not drug_1_exists.data or not drug_2_exists.data:
+        # Return empty list if either drug_1 or drug_2 does not exist in the table
+        return []
+
+    # Proceed with the main query for side effects
     response = supabase.table("poly_SE").select('"Side Effects"').or_(
         f'"Drug 1".eq.{drug_1}, "Drug 2".eq.{drug_2}, "Drug 1".eq.{drug_2}, "Drug 2".eq.{drug_1}'
     ).execute()
 
     if response.data:
         # Extract side effects directly from the response
-        side_effects = response.data[0]["Side Effects"]  # Assuming "Side Effects" is stored as a JSON array
+        side_effects_str = response.data[0]["Side Effects"]  # Assuming "Side Effects" is stored as a JSON array
+        try:
+            side_effects = ast.literal_eval(side_effects_str)
+        except (SyntaxError, ValueError):
+            side_effects = []  # Fallback in case of parsing error
+
         return side_effects
     else:
         return []
+
 
 @app.route('/mono_se', methods=['GET'])
 def mono_se():
@@ -74,7 +95,7 @@ def predict_medicine():
         return jsonify({"error": "No file uploaded"}), 400
     file = request.files['file']
     image_bytes = file.read()
-    predicted_medicine, confidence = predict(image_bytes)
+    predicted_medicine, confidence = predict(image_bytes, model)
     return jsonify({"predicted_medicine": predicted_medicine, "confidence": f"{100 * confidence:.2f}%"})
 
 if __name__ == '__main__':
